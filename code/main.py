@@ -52,5 +52,7 @@ if __name__ == "__main__":
         counter = HalfCounter(file_path)
     elif type_counter == 'log':
         counter = LogCounter(file_path)
-    
-    print(counter)
+
+    # Counting needs to happen before
+    counter.count()
+    print(counter.getCounter())
