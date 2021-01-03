@@ -101,7 +101,7 @@ if __name__ == "__main__":
         # Print out table
         for elem in unique:
             count = count_dict[elem]
-            print(f"counter value: \t{elem},\t {count} times \t- {count/num_trials*100:.1f}%")
+            print(f"counter value: \t{elem},\t {count} times \t- {count/num_trials*100:.2f}%")
 
         print(f"Calculated in {toc-tic:.2f} seconds")
         # we dont go any further, this is the testing batch
