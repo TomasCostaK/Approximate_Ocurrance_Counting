@@ -21,8 +21,8 @@ if __name__ == "__main__":
         print(str(err))  # will print something like "option -a not recognized"
         usage()
         sys.exit(2)
-
-    if "-c" not in [x[0] for x in opts]:
+    temp_opts = [x[0] for x in opts]
+    if "-c" not in temp_opts or "-f" not in temp_opts:
         usage()
         sys.exit(1)
     for o, a in opts:

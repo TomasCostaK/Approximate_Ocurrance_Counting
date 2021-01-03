@@ -1,33 +1,16 @@
-import sys
-import time
+import random
 import re
 class Counter:
     def __init__(self, file_path):
         # Initialize array and declare file_path
         self.file_path = file_path
-        self.word_counter_dict = {}
         self.word_counter = 0
     
     def getCount(self):
-        return self.word_counter_dict
+        return self.word_counter
 
     # Baseline function, all inherited classes will change this method, this is the method were we split into tokens
     def tokenize(self):
-        pass
-
-    def index(self, tokens):
-        pass
-
-    def count(self):
-        tokens = self.tokenize()
-        self.index(tokens)
-        return self.word_counter_dict
-
-    def getCounter(self):
-        return self.word_counter
-class ExactCounter(Counter):
-    def tokenize(self):
-        print("Exact")
         final_tokens = []
         with open(self.file_path) as file:
             for lines in file:
@@ -36,19 +19,28 @@ class ExactCounter(Counter):
         return final_tokens
 
     def index(self, tokens):
+        pass
+
+    def count(self):
+        tokens = self.tokenize()
+        self.index(tokens)
+
+    def getCounter(self):
+        return f"Counter: {self.word_counter}"
+class ExactCounter(Counter):
+    def index(self, tokens):
         # treatment just for counter
         self.word_counter += len(tokens)
-
-        # treatment if we need each token in a dict
-        for token in tokens:
-            if token not in self.word_counter_dict.keys():
-                self.word_counter_dict[token] = 1
-            else:
-                self.word_counter_dict[token] += 1
+        
 class HalfCounter(Counter):
-    def tokenize(self):
-        print("Half")
+    def index(self, tokens):
+        # treatment just for counter
+        # other way
+        random_array = [random.randint(0,1) for _ in range(len(tokens)+1)]
+        self.word_counter += sum(random_array) * 2 # we multiply by 2, since we were predicting only half the events
 
 class LogCounter(Counter):
-    def tokenize(self):
-        print("Log")
+    def index(self):
+        # treatment just for counter
+        random_array = [random.randint(0,1) for _ in range(len(tokens)+1)]
+        self.word_counter += sum(random_array) * 2
