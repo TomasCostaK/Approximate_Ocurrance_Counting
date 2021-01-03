@@ -46,6 +46,12 @@ if __name__ == "__main__":
                 usage()
                 sys.exit()
 
+    if testing_flag:
+
+        # we dont go any further, this is the testing batch
+        sys.exit()
+
+    # The individual analysis for each text, given that -c and -f is provided
     if type_counter == 'exact':
         counter = ExactCounter(file_path)
     elif type_counter == 'half':
