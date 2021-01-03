@@ -8,7 +8,13 @@ class Counter:
         self.tokens = []
         self.word_counter = 0
         self.counter_value = 0
-    
+
+    # Auxiliary function to help call multiple times
+    def resetVars(self):
+        self.tokens = []
+        self.word_counter = 0
+        self.counter_value = 0
+
     def getCount(self):
         return self.word_counter
 
@@ -25,21 +31,30 @@ class Counter:
         pass
 
     def count(self):
+        self.resetVars()
         self.tokenize()
         self.index()
 
     def getCounter(self):
-        return f"Counter: {self.word_counter}"
+        return self.counter_value
+
+    def getWordCounter(self):
+        return self.word_counter
+
+    def printCounter(self):
+        return f"Counter Value: {self.word_counter}"
 class ExactCounter(Counter):
     def index(self):
         # treatment just for counter
         self.word_counter += len(self.tokens)
+        self.counter_value += len(self.tokens)
 
 class HalfCounter(Counter):
     def index(self):
         # treatment just for counter
         # other way
         random_array = [random.randint(0,1) for _ in range(len(self.tokens)+1)]
+        self.counter_value += sum(random_array)
         self.word_counter += sum(random_array) * 2 # we multiply by 2, since we were predicting only half the events
 
 class LogCounter(Counter):
@@ -54,5 +69,4 @@ class LogCounter(Counter):
 
         # this formula is provided in the slides as ( a^k–a + 1 ) / ( a –1 )
         k = self.counter_value
-        self.word_counter = ( (base**k) - base + 1 ) / ( base-1 )
-        
+        self.word_counter = int((base**k - base + 1 ) / ( base-1 ))
