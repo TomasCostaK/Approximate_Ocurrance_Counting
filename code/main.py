@@ -78,22 +78,19 @@ if __name__ == "__main__":
         toc = time.time()
         # We use NP to more efficiently calculate averages and std devs
         trial_values = np.array(trial_values)
-        
-        # Measures
-        mean = np.mean(trial_values)
-        low = np.min(trial_values)
-        high = np.max(trial_values)
-        mean_abs_dev = np.mean(np.absolute(trial_values - np.mean(trial_values)))
-        std_dev = np.std(trial_values)
-        variance = np.var(trial_values)
 
         # Comparisons
-        relative_errors_array = np.absolute(trial_values-real_value)
-        maxre = np.max(relative_errors_array)
-        minre = np.min(relative_errors_array)
+        relative_errors_array = np.absolute(trial_values-real_value) / real_value
+        max_re = np.max(relative_errors_array)
+        min_re = np.min(relative_errors_array)
+        mean_re = np.mean(relative_errors_array)
+
+        # Comparisons
+        accuracy_array = np.array(trial_values) / real_value
+        mean_acc = np.mean(accuracy_array)
 
         # Print out measures
-        print(f"Smallest counter value: {low} \nHighest counter value: {high}\nMaximum relative error: {maxre:.3f}\nMinimum relative error: {minre:.3f} \nMean counter value: {mean:.3f} \nMean absolute deviation: {mean_abs_dev:.3f} \nStandard deviation: {std_dev:.3f} \nVariance: {variance:.3f}\n")
+        print(f"\nMaximum relative error: {max_re:.3f}\nMinimum relative error: {min_re:.3f} \nMean relative error: {mean_re:.3f} \nMean accuracy ratio: {mean_acc:.3f}\n")
         
         unique, counts = np.unique(trial_values, return_counts=True)
         count_dict = dict(zip(unique, counts))
