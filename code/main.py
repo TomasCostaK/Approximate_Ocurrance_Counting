@@ -87,28 +87,18 @@ if __name__ == "__main__":
     min_re = np.min(relative_errors_array)
     mean_re = np.mean(relative_errors_array)
 
-    # Comparisons
-    accuracy_array = np.array(trial_values) / real_value
-    mean_acc = np.mean(accuracy_array)
 
     # Print top words
     print("Ten most frequent words: (average)")
-    print("Word \t\t Exact Count \t Est. Count \t Mean absolute error \t Mean relative error")
-    print("--------------------------------------------------------------------------------------------")
+    print("Word \t\t Exact Count \t Avg. Est. Count \t Mean absolute error \t Mean relative error")
+    print("----------------------------------------------------------------------------------------------------")
     for word in top_words:
-        print(f"{word[0]} \t\t {exact_dict[word[0]]} \t\t {word[1]} \t\t {abs(word[1]-exact_dict[word[0]]):.1f} \t\t\t {abs(word[1]-exact_dict[word[0]])/ exact_dict[word[0]]*100:.2f}%")
+        print(f"{word[0]} \t\t {exact_dict[word[0]]} \t\t {word[1]} \t\t\t {abs(word[1]-exact_dict[word[0]]):.1f} \t\t\t {abs(word[1]-exact_dict[word[0]])/ exact_dict[word[0]]*100:.2f}%")
 
     # Print out measures
     print("\nGlobal counter measures:")
-    print(f"Maximum relative error: {max_re*100:.3f}%\nMinimum relative error: {min_re* 100:.3f}% \nMean relative error: {mean_re*100:.3f}% \nMean accuracy ratio: {mean_acc*100:.3f}%\n")
+    print(f"Maximum relative error: {max_re*100:.3f}%\nMinimum relative error: {min_re* 100:.3f}% \nMean relative error: {mean_re*100:.3f}%\n")
     
-    unique, counts = np.unique(trial_values, return_counts=True)
-    count_dict = dict(zip(unique, counts))
-
-    # Print out table
-    for elem in unique:
-        count = count_dict[elem]
-        #print(f"counter value: \t{elem},\t {count} times \t- {count/num_trials*100:.2f}%")
 
     print(f"Calculated in {toc-tic:.2f} seconds")
     # we dont go any further, this is the testing batch
